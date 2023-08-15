@@ -60,7 +60,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final am = AddictiveMetronome();
+  final am = EightNoteWithAccentsModel();
   double value = 60.0;
   late StreamSubscription<Signal> _stream;
 
@@ -72,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    _stream = AddictiveMetronome.listen(on);
+    _stream = EightNoteWithAccentsModel.listen(on);
     super.initState();
   }
 

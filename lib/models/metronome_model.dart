@@ -2,12 +2,11 @@ import 'dart:async';
 
 import 'package:addictive_metronome_2/models/exercise_model.dart';
 import 'package:addictive_metronome_2/services/ogg_player.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:get/get.dart';
+
 import 'package:reliable_interval_timer/reliable_interval_timer.dart';
 class Signal {}
 
-class AddictiveMetronome {
+class EightNoteWithAccentsModel {
   int bpm = 60;
   int numberOfBars = 4;
   int numberOfSubdivisions = 4;
@@ -20,7 +19,7 @@ class AddictiveMetronome {
 
   int beatPosition = 0;
 
-  // Outbound signal driver - allows widgets to listen for signals from audio engine
+  // Outbound signal driver - allows widgets to listen for signals for set state
   static final StreamController<Signal> _signal =
   StreamController<Signal>.broadcast();
 
@@ -29,7 +28,7 @@ class AddictiveMetronome {
   static StreamSubscription<Signal> listen(Function(Signal) onData) =>
       _signal.stream.listen(onData);
 
-  AddictiveMetronome() {
+  EightNoteWithAccentsModel() {
     isPlaying = timer.isRunning;
     String temp =  ExerciseModel.randomSixteenNotes();
     playingPattern = temp.split("");
