@@ -1,41 +1,36 @@
 import 'dart:async';
 
-import 'package:addictive_metronome_2/models/exercise_model.dart';
+import 'package:addictive_metronome_2/models/eight_mote_with_accent_data.dart';
 import 'package:addictive_metronome_2/services/ogg_player.dart';
+import 'package:addictive_metronome_2/services/timer.dart';
 
-import 'package:reliable_interval_timer/reliable_interval_timer.dart';
-class Signal {}
 
 class EightNoteWithAccentsModel {
+  final  _timer = CustomTimer();
   int bpm = 60;
   int numberOfBars = 4;
   int numberOfSubdivisions = 4;
  late List<String> playingPattern = [];
-  late ReliableIntervalTimer timer = ReliableIntervalTimer(
-      interval: Duration(milliseconds: 60000 ~/ bpm ~/ numberOfSubdivisions),
-      callback: (e) => loop());
-  late bool isPlaying;
+
   bool isClickPlaying = false;
 
   int beatPosition = 0;
+  late StreamSubscription<Signal> _stream;
 
-  // Outbound signal driver - allows widgets to listen for signals for set state
-  static final StreamController<Signal> _signal =
-  StreamController<Signal>.broadcast();
 
-  static Future<void> close() =>
-      _signal.close(); // Not used but required by SDK
-  static StreamSubscription<Signal> listen(Function(Signal) onData) =>
-      _signal.stream.listen(onData);
+
+  void on<Signal>(Signal s) => loop();
 
   EightNoteWithAccentsModel() {
-    isPlaying = timer.isRunning;
     String temp =  ExerciseModel.randomSixteenNotes();
     playingPattern = temp.split("");
+    _timer.updateInterval(Duration(milliseconds: 60000 ~/ bpm ~/ numberOfSubdivisions));
+    _stream = CustomTimer.listen(on);
+
   }
 
   void populateExercise()  {
-   if(isPlaying) {
+   if(_timer.isPlaying) {
       toogleMetronome();
     }
     playingPattern.clear();
@@ -44,22 +39,36 @@ class EightNoteWithAccentsModel {
    Future.delayed(const Duration(seconds: 1), () => toogleMetronome());
   }
 
+  void invertAccent(){
+    List<String> temp = [];
+    for (var i=0; i<playingPattern.length;i++){
+      playingPattern[i] == playingPattern[i].toUpperCase()
+          ? temp.add(playingPattern[i].toLowerCase())
+          : temp.add(playingPattern[i].toUpperCase());
+    }
+    playingPattern = temp;
+  }
+
+  void invertHands(){
+
+  }
+
   void updateBpm(int newBpm) {
     bpm = newBpm;
-    timer.updateInterval(
+    _timer.updateInterval(
         Duration(milliseconds: 60000 ~/ bpm ~/ numberOfSubdivisions));
   }
 void toogleClick(){
     isClickPlaying = !isClickPlaying;
 }
   void toogleMetronome() {
-    if (isPlaying == true) {
-      timer.stop();
-      isPlaying = false;
+    if (_timer.isPlaying == true) {
+      _timer.stop();
+      _timer.isPlaying = false;
       beatPosition = 0;
     } else {
-      timer.start();
-      isPlaying = true;
+      _timer.start();
+      _timer.isPlaying = true;
     }
   }
 
@@ -73,7 +82,6 @@ void toogleClick(){
               : null;
         }
         OggPlayer.play(1);
-        _signal.add(Signal());
 
         beatPosition <= (numberOfBars * numberOfSubdivisions - 2)
             ? beatPosition++
@@ -85,7 +93,6 @@ void toogleClick(){
               : null;
         }
         OggPlayer.play(0);
-        _signal.add(Signal());
 
         beatPosition <= (numberOfBars * numberOfSubdivisions - 2)
             ? beatPosition++

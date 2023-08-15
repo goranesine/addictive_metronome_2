@@ -1,8 +1,9 @@
 import 'dart:async';
 
-import 'package:addictive_metronome_2/models/exercise_model.dart';
-import 'package:addictive_metronome_2/models/metronome_model.dart';
+import 'package:addictive_metronome_2/models/eight_mote_with_accent_data.dart';
+import 'package:addictive_metronome_2/models/eight_note_with_accent_model.dart';
 import 'package:addictive_metronome_2/services/ogg_player.dart';
+import 'package:addictive_metronome_2/services/timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:wakelock/wakelock.dart';
@@ -72,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    _stream = EightNoteWithAccentsModel.listen(on);
+    _stream = CustomTimer.listen(on);
     super.initState();
   }
 
@@ -104,6 +105,9 @@ class _MyHomePageState extends State<MyHomePage> {
             }),
         ),
     ),
+            ElevatedButton(
+                onPressed: () => am.invertPattern(),
+                child: const Text("Invert pattern")),
             ElevatedButton(
                 onPressed: () => am.toogleClick(),
                 child: const Text("Click on/off")),
