@@ -31,7 +31,19 @@ abstract class ExerciseModel {
     }
   }
 
-  static String randomSixteenNotes()  {
+  static String randomSixteenNotes(){
+    int r = Random().nextInt(2);
+    String returnedStringExercise ="";
+    switch(r){
+      case 0:
+        returnedStringExercise = randomSixteenNotesFromFourNotes();
+      break;
+
+    }
+    return returnedStringExercise;
+  }
+
+  static String randomSixteenNotesFromFourNotes()  {
     List<String> temp = [];
     String stringExercise = "";
     Random r = Random();
@@ -39,6 +51,25 @@ abstract class ExerciseModel {
       temp.add(fourNotesPatternList[r.nextInt(fourNotesPatternList.length)]);
     }
     stringExercise = temp.join("");
+
+    return stringExercise;
+  }
+
+  static String randomSixteenNotesFromEightNotes()  {
+    List<String> temp = [];
+    String stringExercise = "";
+    Random r = Random();
+    for (var i = 0; i < 2; i++) {
+      temp.add(eightNotesPatternList[r.nextInt(eightNotesPatternList.length)]);
+    }
+    stringExercise = temp.join("");
+
+    return stringExercise;
+  }
+  static String randomSixteenNotesFromSixteenNotes()  {
+    String stringExercise = "";
+    Random r = Random();
+    stringExercise = sixteenNotesPatternList[r.nextInt(sixteenNotesPatternList.length)];
 
     return stringExercise;
   }
