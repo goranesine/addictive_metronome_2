@@ -6,7 +6,10 @@ import 'package:addictive_metronome_2/services/ogg_player.dart';
 import 'package:addictive_metronome_2/services/timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animated_button/flutter_animated_button.dart';
 import 'package:wakelock/wakelock.dart';
+
+import 'constants.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,6 +29,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
@@ -62,14 +66,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final am = EightNoteWithAccentsModel();
-  double value = 60.0;
   late StreamSubscription<Signal> _stream;
 
-
-
-  void on<Signal>(Signal s) => setState(() {
-
-  });
+  void on<Signal>(Signal s) => setState(() {});
 
   @override
   void initState() {
@@ -82,60 +81,112 @@ class _MyHomePageState extends State<MyHomePage> {
     _stream.cancel();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-        Expanded(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: GridView.builder(
-          gridDelegate:  const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 4),
-            itemCount: am.playingPattern.length,
-            itemBuilder: (BuildContext ctx, index) {
-              return Text(am.playingPattern[index],textScaleFactor: 5,style:
-              index== am.beatPosition ?
-              TextStyle(fontWeight: FontWeight.bold,color: Colors.redAccent): TextStyle(fontWeight: FontWeight.normal),);
-            }),
-        ),
-    ),
-            ElevatedButton(
-                onPressed: () => am.invertPattern(),
-                child: const Text("Invert pattern")),
-            ElevatedButton(
-                onPressed: () => am.toogleClick(),
-                child: const Text("Click on/off")),
-            Slider(
-                value: value,
-                min: 60.0,
-                max: 120.0,
-                divisions: 10,
-                onChanged: (newValue) {
-                  setState(() {
-                    value = newValue;
-                  });
-                  am.updateBpm(newValue.toInt());
-                }),
-            ElevatedButton(
-                onPressed: () => am.toogleMetronome(),
-                child: const Text("Start/Stop")),
-            ElevatedButton(
-                onPressed: () {
-                  am.populateExercise();
-                  Future.delayed(
-                      const Duration(seconds: 1), () => setState(() {}));
-                },
-                child: const Text("Random Exercise")),
-          ],
-        ),
+        body: Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GridView.builder(
+                  gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+
+                      crossAxisCount: am.numberOfBars),
+                  itemCount: am.playingPattern.length,
+                  itemBuilder: (BuildContext ctx, index) {
+                    return Center(
+                      child: Text(
+                        am.playingPattern[index],
+                        textScaleFactor:am.playingPattern[index]==am.playingPattern[index].toUpperCase() ? 6 : 3,
+                        style: index == am.beatPosition
+                            ? const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.redAccent)
+                            : const TextStyle(fontWeight: FontWeight.normal),
+                      ),
+                    );
+                  }),
+            ),
+          ),
+          Divider(),
+          Row(
+            children: <Widget>[
+              Expanded(
+                  child:  InkWell(
+                    child:  const Center(child: Text("|~^",style: TextStyle( fontSize: 30,
+                      letterSpacing: 1,
+                      color:  Colors.black,
+                      fontWeight: FontWeight.bold,),
+                    )),
+                    onTap:()=> am.invertAccent(),)
+              ),
+              Expanded(
+                  child:  InkWell(
+                    child:  const Center(child: Text("L<>R",style: TextStyle( fontSize: 30,
+                      letterSpacing: 1,
+                      color:  Colors.black,
+                      fontWeight: FontWeight.bold,),
+                    )),
+                    onTap:()=> am.invertHands(),)
+              ),
+              Expanded(
+                  child:  InkWell(
+                    child:  const Center(child: Text("PLAY",style: TextStyle( fontSize: 30,
+                      letterSpacing: 1,
+                      color:  Colors.black,
+                      fontWeight: FontWeight.bold,),
+                    )),
+                    onTap:()=> am.toogleMetronome(),)
+              ),
+            ],
+          ),
+
+          Slider(
+            activeColor: Colors.black,
+              value: am.bpm.toDouble(),
+              min: Constants.minBpm.toDouble(),
+              max: Constants.maxBpm.toDouble(),
+              onChanged: (newValue) {
+
+                am.updateBpm(newValue.toInt());
+              }),
+          Row(
+            children: <Widget>[
+              Expanded(
+                  child:  InkWell(
+                    child:  Center(child: Text("CLICK",style: TextStyle( fontSize: 30,
+                      letterSpacing: 1,
+                      color: am.isClickPlaying ? Colors.green : Colors.black,
+                      fontWeight: FontWeight.bold,),
+                    )),
+                    onTap:()=> am.toogleClick(),)
+              ),
+              Expanded(
+                child:  InkWell(child: const Center(child: Text("NEW",style:
+                  Constants.submitTextStyle,)),
+                  onTap:()=> am.populateExercise(),)
+              ),
+              Expanded(
+                child:  InkWell(
+                  child:  Center(child: Text("AUTO",style: TextStyle( fontSize: 30,
+                  letterSpacing: 1,
+                  color: am.isAutomaticIncreasmentOn ? Colors.green : Colors.black,
+                  fontWeight: FontWeight.bold,),
+               )),
+                  onTap:()=> am.toogleAutoIncreasment(),)
+              ),
+
+            ],
+          ),
+        ],
       ),
-      // This trailing comma makes auto-formatting nicer for build methods.
-    );
+    ));
+    // This trailing comma makes auto-formatting nicer for build methods.
   }
 }

@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
 class Constants{
-
+  static const submitTextStyle = TextStyle(
+      fontSize: 30,
+      letterSpacing: 1,
+      color: Colors.black,
+      fontWeight: FontWeight.bold);
+static const int maxBpm = 120;
+static const int minBpm = 60;
+static const int bpmAutomaticIncrementValue = 5;
   List<Color> ash = [
     const Color(0xFF606c88),
     const Color(0xFF3f4c6b),
