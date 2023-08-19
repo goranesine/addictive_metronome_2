@@ -89,21 +89,26 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
         body: Center(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SizedBox(
+              width: width,
+              height: height / 100 * 70,
               child: GridView.builder(
-                  gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-
-                      crossAxisCount: am.numberOfBars),
+                  shrinkWrap: true,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      childAspectRatio: 0.8, crossAxisCount: am.numberOfBars),
                   itemCount: am.playingPattern.length,
                   itemBuilder: (BuildContext ctx, index) {
                     return Center(
                       child: Text(
                         am.playingPattern[index],
-                        textScaleFactor:am.playingPattern[index]==am.playingPattern[index].toUpperCase() ? 6 : 3,
+                        textScaleFactor: am.playingPattern[index] ==
+                                am.playingPattern[index].toUpperCase()
+                            ? 6
+                            : 4,
                         style: index == am.beatPosition
                             ? const TextStyle(
                                 fontWeight: FontWeight.bold,
@@ -118,70 +123,98 @@ class _MyHomePageState extends State<MyHomePage> {
           Row(
             children: <Widget>[
               Expanded(
-                  child:  InkWell(
-                    child:  const Center(child: Text("|~^",style: TextStyle( fontSize: 30,
-                      letterSpacing: 1,
-                      color:  Colors.black,
-                      fontWeight: FontWeight.bold,),
-                    )),
-                    onTap:()=> am.invertAccent(),)
-              ),
+                  child: InkWell(
+                child: const Center(
+                    child: Text(
+                  "|~^",
+                  style: TextStyle(
+                    fontSize: 30,
+                    letterSpacing: 1,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )),
+                onTap: () => am.invertAccent(),
+              )),
               Expanded(
-                  child:  InkWell(
-                    child:  const Center(child: Text("L<>R",style: TextStyle( fontSize: 30,
-                      letterSpacing: 1,
-                      color:  Colors.black,
-                      fontWeight: FontWeight.bold,),
-                    )),
-                    onTap:()=> am.invertHands(),)
-              ),
+                  child: InkWell(
+                child: const Center(
+                    child: Text(
+                  "L<>R",
+                  style: TextStyle(
+                    fontSize: 30,
+                    letterSpacing: 1,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )),
+                onTap: () => am.invertHands(),
+              )),
               Expanded(
-                  child:  InkWell(
-                    child:  const Center(child: Text("PLAY",style: TextStyle( fontSize: 30,
-                      letterSpacing: 1,
-                      color:  Colors.black,
-                      fontWeight: FontWeight.bold,),
-                    )),
-                    onTap:()=> am.toogleMetronome(),)
-              ),
+                  child: InkWell(
+                child: const Center(
+                    child: Text(
+                  "PLAY",
+                  style: TextStyle(
+                    fontSize: 30,
+                    letterSpacing: 1,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )),
+                onTap: () => am.toogleMetronome(),
+              )),
             ],
           ),
-
           Slider(
-            activeColor: Colors.black,
+              activeColor: Colors.black,
               value: am.bpm.toDouble(),
               min: Constants.minBpm.toDouble(),
               max: Constants.maxBpm.toDouble(),
               onChanged: (newValue) {
-
                 am.updateBpm(newValue.toInt());
               }),
           Row(
             children: <Widget>[
               Expanded(
-                  child:  InkWell(
-                    child:  Center(child: Text("CLICK",style: TextStyle( fontSize: 30,
-                      letterSpacing: 1,
-                      color: am.isClickPlaying ? Colors.green : Colors.black,
-                      fontWeight: FontWeight.bold,),
-                    )),
-                    onTap:()=> am.toogleClick(),)
-              ),
+                  child: InkWell(
+                child: Center(
+                    child: Text(
+                  "CLICK",
+                  style: TextStyle(
+                    fontSize: 30,
+                    letterSpacing: 1,
+                    color: am.isClickPlaying ? Colors.green : Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )),
+                onTap: () => am.toogleClick(),
+              )),
               Expanded(
-                child:  InkWell(child: const Center(child: Text("NEW",style:
-                  Constants.submitTextStyle,)),
-                  onTap:()=> am.populateExercise(),)
-              ),
+                  child: InkWell(
+                child: const Center(
+                    child: Text(
+                  "NEW",
+                  style: Constants.submitTextStyle,
+                )),
+                onTap: () => am.populateExercise(),
+              )),
               Expanded(
-                child:  InkWell(
-                  child:  Center(child: Text("AUTO",style: TextStyle( fontSize: 30,
-                  letterSpacing: 1,
-                  color: am.isAutomaticIncreasmentOn ? Colors.green : Colors.black,
-                  fontWeight: FontWeight.bold,),
-               )),
-                  onTap:()=> am.toogleAutoIncreasment(),)
-              ),
-
+                  child: InkWell(
+                child: Center(
+                    child: Text(
+                  "AUTO",
+                  style: TextStyle(
+                    fontSize: 30,
+                    letterSpacing: 1,
+                    color: am.isAutomaticIncreasmentOn
+                        ? Colors.green
+                        : Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )),
+                onTap: () => am.toogleAutoIncreasment(),
+              )),
             ],
           ),
         ],

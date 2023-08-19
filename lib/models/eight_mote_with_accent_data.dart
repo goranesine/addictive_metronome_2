@@ -32,11 +32,18 @@ abstract class ExerciseModel {
   }
 
   static String randomSixteenNotes(){
-    int r = Random().nextInt(2);
+    int r = Random().nextInt(3);
+    print(r);
     String returnedStringExercise ="";
     switch(r){
       case 0:
         returnedStringExercise = randomSixteenNotesFromFourNotes();
+      break;
+ case 1:
+        returnedStringExercise = randomSixteenNotesFromEightNotes();
+      break;
+ case 2:
+        returnedStringExercise = randomSixteenNotesFromSixteenNotes();
       break;
 
     }

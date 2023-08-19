@@ -24,6 +24,7 @@ static Future<void> initOgg()async {
     rootBundle.load("assets/click.ogg").then((ogg) {
       fop.load(src: ogg, index: 2, name: 'click.ogg',forceLoad: true);
     });
+
   }
 
  static void play(int id) {
