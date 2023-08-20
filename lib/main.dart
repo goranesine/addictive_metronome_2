@@ -7,6 +7,7 @@ import 'package:addictive_metronome_2/services/timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animated_button/flutter_animated_button.dart';
+import 'package:input_slider/input_slider.dart';
 import 'package:wakelock/wakelock.dart';
 
 import 'constants.dart';
@@ -95,11 +96,11 @@ class _MyHomePageState extends State<MyHomePage> {
             padding: const EdgeInsets.all(8.0),
             child: SizedBox(
               width: width,
-              height: height / 100 * 70,
+              height: height / 100 * 60,
               child: GridView.builder(
                   shrinkWrap: true,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      childAspectRatio: 0.8, crossAxisCount: am.numberOfBars),
+                      crossAxisCount: am.numberOfBars),
                   itemCount: am.playingPattern.length,
                   itemBuilder: (BuildContext ctx, index) {
                     return Center(
@@ -119,7 +120,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   }),
             ),
           ),
-          Divider(),
+          InputSlider(
+            activeSliderColor: Colors.black,
+            division: 3,
+            onChange: (value) => am.updateLevel(value.toInt()),
+            min: 0.0,
+            max: 2.0,
+            decimalPlaces: 0,
+            
+            leading: Text("Level:"), defaultValue: am.exerciseLevel.toDouble(),
+          ),
           Row(
             children: <Widget>[
               Expanded(
@@ -166,14 +176,14 @@ class _MyHomePageState extends State<MyHomePage> {
               )),
             ],
           ),
-          Slider(
-              activeColor: Colors.black,
-              value: am.bpm.toDouble(),
-              min: Constants.minBpm.toDouble(),
-              max: Constants.maxBpm.toDouble(),
-              onChanged: (newValue) {
-                am.updateBpm(newValue.toInt());
-              }),
+          InputSlider(
+            activeSliderColor: Colors.black,
+            onChange: (value) => am.updateBpm(value.toInt()),
+            min: Constants.minBpm.toDouble(),
+            max: Constants.maxBpm.toDouble(),
+division: 12,
+            leading: Text("Bpm:"), defaultValue: am.bpm.toDouble(),
+          ),
           Row(
             children: <Widget>[
               Expanded(

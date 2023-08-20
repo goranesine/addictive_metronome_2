@@ -18,23 +18,25 @@ bool isMetronomePlaying = false;
   int beatPosition = 0;
   int numberOfBarsPlayed = 0;
   late StreamSubscription<Signal> _stream;
+  int exerciseLevel =0;
 
   void on<Signal>(Signal s) => loop();
 
   EightNoteWithAccentsModel() {
-    String temp = ExerciseModel.randomSixteenNotes();
+    String temp = ExerciseModel.randomSixteenNotes(exerciseLevel);
     playingPattern = temp.split("");
     _timer.updateInterval(
         Duration(milliseconds: 60000 ~/ bpm ~/ numberOfSubdivisions));
     _stream = CustomTimer.listen(on);
   }
-
+void updateLevel(int level){
+    exerciseLevel = level;}
   void populateExercise() {
     if (_timer.isPlaying) {
       toogleMetronome();
     }
     playingPattern.clear();
-    String temp = ExerciseModel.randomSixteenNotes();
+    String temp = ExerciseModel.randomSixteenNotes(exerciseLevel);
     playingPattern = temp.split("");
     Future.delayed(const Duration(seconds: 1), () => toogleMetronome());
   }
