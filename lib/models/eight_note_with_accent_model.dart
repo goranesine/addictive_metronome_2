@@ -5,6 +5,7 @@ import 'package:addictive_metronome_2/services/ogg_player.dart';
 import 'package:addictive_metronome_2/services/timer.dart';
 
 import '../constants.dart';
+import '../services/streams.dart';
 
 class EightNoteWithAccentsModel {
   final _timer = CustomTimer();
@@ -27,10 +28,11 @@ bool isMetronomePlaying = false;
     playingPattern = temp.split("");
     _timer.updateInterval(
         Duration(milliseconds: 60000 ~/ bpm ~/ numberOfSubdivisions));
-    _stream = CustomTimer.listen(on);
+    _stream = Streams.listen(on);
   }
 void updateLevel(int level){
-    exerciseLevel = level;}
+    exerciseLevel = level;
+  Streams.broadcastGuiUpdateSignal();}
   void populateExercise() {
     if (_timer.isPlaying) {
       toogleMetronome();
@@ -38,9 +40,13 @@ void updateLevel(int level){
     playingPattern.clear();
     String temp = ExerciseModel.randomSixteenNotes(exerciseLevel);
     playingPattern = temp.split("");
-    Future.delayed(const Duration(seconds: 1), () => toogleMetronome());
-  }
-
+Streams.broadcastGuiUpdateSignal();  }
+void invertIndividualAccent(int indexInGrid){
+    playingPattern[indexInGrid] == playingPattern[indexInGrid].toLowerCase()
+    ? playingPattern[indexInGrid] = playingPattern[indexInGrid].toUpperCase()
+    : playingPattern[indexInGrid] = playingPattern[indexInGrid].toLowerCase();
+    Streams.broadcastGuiUpdateSignal();
+}
   void invertAccent() {
     List<String> temp = [];
     for (var i = 0; i < playingPattern.length; i++) {
@@ -49,6 +55,7 @@ void updateLevel(int level){
           : temp.add(playingPattern[i].toUpperCase());
     }
     playingPattern = temp;
+    Streams.broadcastGuiUpdateSignal();
   }
 
   void invertHands() {
@@ -73,21 +80,25 @@ void updateLevel(int level){
       }
     }
     playingPattern = temp;
+    Streams.broadcastGuiUpdateSignal();
   }
 
   void updateBpm(int newBpm) {
     bpm = newBpm;
     _timer.updateInterval(
         Duration(milliseconds: 60000 ~/ bpm ~/ numberOfSubdivisions));
+  Streams.broadcastGuiUpdateSignal();
   }
 
   void toogleClick() {
     isClickPlaying = !isClickPlaying;
+    Streams.broadcastGuiUpdateSignal();
   }
 
   void toogleAutoIncreasment() {
     numberOfBarsPlayed = 0;
     isAutomaticIncreasmentOn = !isAutomaticIncreasmentOn;
+    Streams.broadcastGuiUpdateSignal();
   }
 
   void toogleMetronome() {
@@ -97,6 +108,7 @@ void updateLevel(int level){
       isMetronomePlaying = false;
       beatPosition = 0;
       numberOfBarsPlayed = 0;
+      Streams.broadcastGuiUpdateSignal();
     } else {
       _timer.start();
       _timer.isPlaying = true;
