@@ -53,16 +53,15 @@ class _MetronomePageState extends State<MetronomePage> {
             Row(
               children: [
                 Container(
-                  child: Column(children: [
-                    Text("is ascending: ${am.isPyramidAscending}",style: TextStyle(color: Colors.white,fontSize: 30),),
-                    Text("play piramid: ${am.playPyramidExercise}",style: TextStyle(color: Colors.white,fontSize: 30),),
-                    Text("number of eight bars played: ${am.numberOfEightBarsPlayed}",style: TextStyle(color: Colors.white,fontSize: 30),),
-                    Text("number of subdiv: ${am.numberOfSubdivisions}",style: TextStyle(color: Colors.white,fontSize: 30),),
-                  ],),
                   width: width / 2,
                   height: height / 100 * 80,
                   color:
                       am.beatPosition == 0 ? Colors.black : Colors.greenAccent,
+                  child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    Text(am.playPyramidExercise ? am.numberOfSubdivisions.toString()
+                        : am.bpm.toString(),style: TextStyle(color: Colors.white,fontSize: 100,fontWeight: FontWeight.bold),),
+
+                  ],),
                 ),
                 GestureDetector(onDoubleTap:()=> am.decreaseSubdivision(),
                   onTap: ()=> am.increaseSubdivision(),

@@ -52,19 +52,19 @@ class MetronomeModel {
               numberOfEightBarsPlayed++;
               if(isPyramidAscending && numberOfSubdivisions <8 ){
                 numberOfSubdivisions++;
-                _timer.updateInterval(
-                    Duration(milliseconds: 60000 ~/ bpm ~/ numberOfSubdivisions));
+                updateBpm(bpm);
+
               }if(!isPyramidAscending && numberOfSubdivisions >1 ) {
                 numberOfSubdivisions--;
-                _timer.updateInterval(
-                    Duration(milliseconds: 60000 ~/ bpm ~/ numberOfSubdivisions));
+                updateBpm(bpm);
+
               }
             }else{
             numberOfEightBarsPlayed = 2;
             isPyramidAscending = !isPyramidAscending;
        isPyramidAscending ? numberOfSubdivisions++ :     numberOfSubdivisions--;
-            _timer.updateInterval(
-                Duration(milliseconds: 60000 ~/ bpm ~/ numberOfSubdivisions));
+            updateBpm(bpm);
+
           }
 
         }
@@ -128,6 +128,8 @@ class MetronomeModel {
     numberOfEightBarsPlayed=1;
     beatPosition = 0;
     playPyramidExercise ? numberOfSubdivisions = 2 : numberOfSubdivisions = 4;
+    updateBpm(bpm);
+
     Streams.broadcastGuiUpdateSignal();
   }
 
