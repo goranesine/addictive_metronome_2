@@ -1,7 +1,9 @@
 
 import 'package:addictive_metronome_2/models/eight_mote_with_accent_data.dart';
-import 'package:addictive_metronome_2/pages/eight_note_with_accents_page.dart';
+import 'package:addictive_metronome_2/pages/home_page.dart';
+import 'package:addictive_metronome_2/pages/metronome_page.dart';
 import 'package:addictive_metronome_2/services/ogg_player.dart';
+import 'package:addictive_metronome_2/services/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:wakelock/wakelock.dart';
@@ -23,6 +25,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: SimpleRouter.getKey(),
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -30,7 +33,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const EightNoteWithAccentsPage(),
+      home:  HomePage(),
     );
   }
 }

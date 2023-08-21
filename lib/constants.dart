@@ -1,13 +1,28 @@
 import 'package:flutter/material.dart';
 
 class Constants{
+
+ static  List<Color> rainbowColors =  <Color>[
+  Colors.red,
+  Colors.pink,
+  Colors.purple,
+  Colors.indigo,
+  Colors.blue,
+  Colors.cyan,
+   Colors.redAccent,
+  Colors.pinkAccent,
+  Colors.purpleAccent,
+  Colors.indigoAccent,
+  Colors.blueAccent,
+  Colors.cyanAccent,
+
+  ];
   static const submitTextStyle = TextStyle(
       fontSize: 30,
       letterSpacing: 1,
       color: Colors.black,
       fontWeight: FontWeight.bold);
-static const int maxBpm = 120;
-static const int minBpm = 60;
+
 static const int bpmAutomaticIncrementValue = 5;
   List<Color> ash = [
     const Color(0xFF606c88),

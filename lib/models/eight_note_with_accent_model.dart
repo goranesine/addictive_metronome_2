@@ -9,17 +9,19 @@ import '../services/streams.dart';
 
 class EightNoteWithAccentsModel {
   final _timer = CustomTimer();
+  final int minBpm = 60;
+  final int maxBpm = 120;
   int bpm = 60;
   int numberOfBars = 4;
   int numberOfSubdivisions = 4;
   late List<String> playingPattern = [];
   bool isAutomaticIncreasmentOn = false;
   bool isClickPlaying = false;
-bool isMetronomePlaying = false;
+  bool isMetronomePlaying = false;
   int beatPosition = 0;
   int numberOfBarsPlayed = 0;
   late StreamSubscription<Signal> _stream;
-  int exerciseLevel =0;
+  int exerciseLevel = 0;
 
   void on<Signal>(Signal s) => loop();
 
@@ -30,9 +32,12 @@ bool isMetronomePlaying = false;
         Duration(milliseconds: 60000 ~/ bpm ~/ numberOfSubdivisions));
     _stream = Streams.listen(on);
   }
-void updateLevel(int level){
+
+  void updateLevel(int level) {
     exerciseLevel = level;
-  Streams.broadcastGuiUpdateSignal();}
+    Streams.broadcastGuiUpdateSignal();
+  }
+
   void populateExercise() {
     if (_timer.isPlaying) {
       toogleMetronome();
@@ -40,13 +45,18 @@ void updateLevel(int level){
     playingPattern.clear();
     String temp = ExerciseModel.randomSixteenNotes(exerciseLevel);
     playingPattern = temp.split("");
-Streams.broadcastGuiUpdateSignal();  }
-void invertIndividualAccent(int indexInGrid){
-    playingPattern[indexInGrid] == playingPattern[indexInGrid].toLowerCase()
-    ? playingPattern[indexInGrid] = playingPattern[indexInGrid].toUpperCase()
-    : playingPattern[indexInGrid] = playingPattern[indexInGrid].toLowerCase();
     Streams.broadcastGuiUpdateSignal();
-}
+  }
+
+  void invertIndividualAccent(int indexInGrid) {
+    playingPattern[indexInGrid] == playingPattern[indexInGrid].toLowerCase()
+        ? playingPattern[indexInGrid] =
+            playingPattern[indexInGrid].toUpperCase()
+        : playingPattern[indexInGrid] =
+            playingPattern[indexInGrid].toLowerCase();
+    Streams.broadcastGuiUpdateSignal();
+  }
+
   void invertAccent() {
     List<String> temp = [];
     for (var i = 0; i < playingPattern.length; i++) {
@@ -87,7 +97,7 @@ void invertIndividualAccent(int indexInGrid){
     bpm = newBpm;
     _timer.updateInterval(
         Duration(milliseconds: 60000 ~/ bpm ~/ numberOfSubdivisions));
-  Streams.broadcastGuiUpdateSignal();
+    Streams.broadcastGuiUpdateSignal();
   }
 
   void toogleClick() {
@@ -144,10 +154,15 @@ void invertIndividualAccent(int indexInGrid){
       }
     }
     if (numberOfBarsPlayed == 8 &&
-        bpm+Constants.bpmAutomaticIncrementValue <= Constants.maxBpm &&
+        bpm + Constants.bpmAutomaticIncrementValue <= 120 &&
         isAutomaticIncreasmentOn == true) {
       updateBpm(bpm + Constants.bpmAutomaticIncrementValue);
       numberOfBarsPlayed = 0;
     }
+  }
+  void dispose(){
+    _timer.stop();
+    _stream.cancel();
+
   }
 }

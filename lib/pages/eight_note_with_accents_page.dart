@@ -36,6 +36,7 @@ class _EightNoteWithAccentsPageState extends State<EightNoteWithAccentsPage> {
   void dispose() {
     metronomeStream.cancel();
     guiUpdateStream.cancel();
+    am.dispose();
     super.dispose();
   }
 
@@ -146,8 +147,8 @@ class _EightNoteWithAccentsPageState extends State<EightNoteWithAccentsPage> {
                     child: Slider(
                       activeColor: Colors.black,
                       onChanged: (value) => am.updateBpm(value.toInt()),
-                      min: Constants.minBpm.toDouble(),
-                      max: Constants.maxBpm.toDouble(),
+                      min: am.minBpm.toDouble(),
+                      max: am.maxBpm.toDouble(),
                       divisions: 12, value: am.bpm.toDouble(),
                     ),
                   ),
