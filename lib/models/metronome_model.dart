@@ -62,6 +62,7 @@ class MetronomeModel {
             }else{
             numberOfEightBarsPlayed = 2;
             isPyramidAscending = !isPyramidAscending;
+            if(isPyramidAscending){updateBpm(bpm+5);}
        isPyramidAscending ? numberOfSubdivisions++ :     numberOfSubdivisions--;
             updateBpm(bpm);
 
@@ -141,7 +142,7 @@ class MetronomeModel {
   }
 
   void increaseSubdivision() {
-    if (numberOfSubdivisions < 8) {
+    if (numberOfSubdivisions < 8 && !playPyramidExercise) {
       numberOfSubdivisions++;
     }
     updateBpm(bpm);
@@ -149,7 +150,7 @@ class MetronomeModel {
   }
 
   void decreaseSubdivision() {
-    if (numberOfSubdivisions > 1) {
+    if (numberOfSubdivisions > 1 && !playPyramidExercise) {
       numberOfSubdivisions--;
     }
     updateBpm(bpm);
