@@ -29,7 +29,7 @@ class MetronomeModel {
   }
 
   void loop() {
-  //  print("number of playingbars: $numberOfEightBarsPlayed" "isAscending: $isPyramidAscending");
+    updateBpm(bpm);
   if(playPyramidExercise){
     if (beatPosition == 0 ) {
       OggPlayer.play(1);
@@ -52,11 +52,9 @@ class MetronomeModel {
               numberOfEightBarsPlayed++;
               if(isPyramidAscending && numberOfSubdivisions <8 ){
                 numberOfSubdivisions++;
-                updateBpm(bpm);
 
               }if(!isPyramidAscending && numberOfSubdivisions >1 ) {
                 numberOfSubdivisions--;
-                updateBpm(bpm);
 
               }
             }else{
@@ -64,7 +62,6 @@ class MetronomeModel {
             isPyramidAscending = !isPyramidAscending;
             if(isPyramidAscending){updateBpm(bpm+5);}
        isPyramidAscending ? numberOfSubdivisions++ :     numberOfSubdivisions--;
-            updateBpm(bpm);
 
           }
 
