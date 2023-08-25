@@ -11,7 +11,7 @@ class TripleNoteWithAccentModel{
   final int minBpm = 60;
   final int maxBpm = 120;
   int bpm = 60;
-  int numberOfBars = 6;
+  int numberOfBars = 4;
   int numberOfSubdivisions = 6;
   late List<String> playingPattern = [];
   bool isAutomaticIncreasmentOn = false;
@@ -24,7 +24,7 @@ class TripleNoteWithAccentModel{
 
   void on<Signal>(Signal s) => loop();
 
-  EightNoteWithAccentsModel() {
+  TripleNoteWithAccentModel() {
     String temp = TripletsWithAccentsExerciseData.randomTwentyFourNotes(exerciseLevel);
     playingPattern = temp.split("");
     _timer.updateInterval(

@@ -2,12 +2,43 @@
 import 'dart:math';
 
 abstract class TripletsWithAccentsExerciseData{
-  static String twentyFourNotes = "RlrlllRlrlllRlrlllRlrlll,rrrLrlrrrLrlrrrLrlrrrlrl,RlrlrlrrrLrlRlrlrlrrrLrl,RlllRlllRlrrLrrrLrrrLrll,RllllRlllRlrLrrrrLrrrLrll,RllRllRlllllLrrLrrLrrrrr,RlrlrLrlRlllRlrlrLrlRlll,LrlrlRlrLrrrLrlrlRlrLrrr,RlrlrLrrrrrrLrlrlRllllll,rlrLllLllrlrLllLllrlRlrl,"
-      "RllRllLrrLrrRllRllLrrLrr,RlrLrrLllLllLrlRllRrrRrr,RlRlrlRrrRrrLrLrlrLllLll,RRRlrlrlrLLLRRRlrlrlrLLL,RrlLrrLlrRllRrlLrrLlrRll,rrRllLrrrrrrllLrrRllllll,rrrRlrlllLrlrrrRlrlllLrl,RlllllllRRllRlllllllRRll,LrrrrrrrLLrr,LrrrrrrrLLrr,RrrrLlllRrrrLlllRrrrLlll,RllRllRLRLrrLrrLrrLRLRll,rllRllrllLrrlrrLrrlrrRll,"
-      "rrLrllRlrrllrrLrllRlrrll,rrllRlrllRlrllrrLrlrrLrl,RlrrLrllrrrrLrllRlrrllll,RllrrrLrlRlrLrrllllRlrLrl,RlrRlrLlrLrrLrlLrlRrlRll,RlrlrlrrllrrLrlrlrllrrll,RlrLrlRlrLrrLrlRlrLrlRll,RllLllrrLrrLRllLllrrLrrL,RlrLrlrrrLrrLrlRlrlllRll,RllLrrRllLrrRllLrrRllLrr,RlrllRllRllRLrlrrLrrLrrL,rrlrrlRlrllrllrLrlrlrlrl,"
-      "rrllRllrrLrrllRllrrLrlrl,RlrllRlrlrrLRlrllRLrlrrL,RlrLllLllLllLrlRrrRrrRrr,RlrLrlRrrRrrLrlRlrLllLll,RlrLrlRlrLrlLllLllRrrRrr,RlrLrlRlrLrlRrrRrrRrrRrr,LrlRlrLrlRlrLllLllLllLll,RlrLrlRlrLrlrrRrrRrrRrrR,LrlRlrLrlRlrllLllLllLllL,"
-      "RlrLrlRlrlrLllLllLRrrRrr,LrlRlrLrlrlRrrRrrRLllLll,RlrLrlrrRrrRLrlRlrllLllL,RlrLrlRlrLrlrRrrRrrRrrRr,LrlRlrLrlRlrlLllLllLllLl,RlrLrlrRrrRrLrlRlrlLllLl,rlRLllrlRLllrlRLllrlRLll,"
-      "";
+  static String twentyFourNotes = "RlrlllRlrlllRlrlllRlrlll,"
+      "rrrLrlrrrLrlrrrLrlrrrlrl,"
+      "RlrlrlrrrLrlRlrlrlrrrLrl,"
+      "RlllRlllRlrrLrrrLrrrLrll,"
+      "RllllRlllRlrLrrrrLrrrLrll,"
+      "RllRllRlllllLrrLrrLrrrrr,"
+      "RlrlrLrlRlllRlrlrLrlRlll,"
+      "LrlrlRlrLrrrLrlrlRlrLrrr,"
+      "RlrlrLrrrrrrLrlrlRllllll,"
+      "rlrLllLllrlrLllLllrlRlrl,"
+      "RllRllLrrLrrRllRllLrrLrr,"
+      "RlrLrrLllLllLrlRllRrrRrr,"
+      "RlRlrlRrrRrrLrLrlrLllLll,"
+      "RRRlrlrlrLLLRRRlrlrlrLLL,"
+      "RrlLrrLlrRllRrlLrrLlrRll,"
+      "rrRllLrrrrrrllLrrRllllll,"
+      "rrrRlrlllLrlrrrRlrlllLrl,"
+      "RlllllllRRllRlllllllRRll,"
+      "LrrrrrrrLLrrLrrrrrrrLLrr,"
+      "RrrrLlllRrrrLlllRrrrLlll,"
+      "RllRllRLRLrrLrrLrrLRLRll,"
+      "rllRllrllLrrlrrLrrlrrRll,"
+      "rrLrllRlrrllrrLrllRlrrll,"
+      "rrllRlrllRlrllrrLrlrrLrl,"
+      "RlrrLrllrrrrLrllRlrrllll,"
+      "RllrrrLrlRlrLrrlllRlrLrl,"
+      "RlrRlrLlrLrrLrlLrlRrlRll,"
+      "RlrlrlrrllrrLrlrlrllrrll,"
+      "RlrLrlRlrLrrLrlRlrLrlRll,"
+      "RllLllrrLrrLRllLllrrLrrL,"
+      "RlrLrlrrrLrrLrlRlrlllRll,"
+      "RllLrrRllLrrRllLrrRllLrr,"
+      "RlrllRllRllRLrlrrLrrLrrL,"
+      "rrlrrlRlrllrllrLrlrlrlrl,"
+      "rrllRllrrLrrllRllrrLrlrl,"
+      "RlrllRlrlrrLRlrllRLrlrrL,RlrLllLllLllLrlRrrRrrRrr,RlrLrlRrrRrrLrlRlrLllLll,RlrLrlRlrLrlLllLllRrrRrr,RlrLrlRlrLrlRrrRrrRrrRrr,LrlRlrLrlRlrLllLllLllLll,RlrLrlRlrLrlrrRrrRrrRrrR,LrlRlrLrlRlrllLllLllLllL,RlrLrlRlrlrLllLllLRrrRrr,LrlRlrLrlrlRrrRrrRLllLll,RlrLrlrrRrrRLrlRlrllLllL,RlrLrlRlrLrlrRrrRrrRrrRr,LrlRlrLrlRlrlLllLllLllLl,RlrLrlrRrrRrLrlRlrlLllLl,rlRLllrlRLllrlRLllrlRLll";
+
   static List<String> twentyFourNotesPatternList = twentyFourNotes.split(",");
   static List<String> twelveNotesPatternList = [];
   static List<String> sixNotesPatternList = [];

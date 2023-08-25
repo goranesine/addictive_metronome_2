@@ -1,12 +1,12 @@
 
 import 'package:addictive_metronome_2/models/eight_mote_with_accent_data.dart';
 import 'package:addictive_metronome_2/pages/home_page.dart';
-import 'package:addictive_metronome_2/pages/metronome_page.dart';
 import 'package:addictive_metronome_2/services/ogg_player.dart';
 import 'package:addictive_metronome_2/services/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:wakelock/wakelock.dart';
+import 'package:addictive_metronome_2/models/triplets_with_accents_data.dart';
 
 
 void main() async {
@@ -15,6 +15,8 @@ void main() async {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   await ExerciseModel.splitToEightNotes();
   await ExerciseModel.splitToFourNotes();
+  TripletsWithAccentsExerciseData.splitToTwelveNotes();
+  TripletsWithAccentsExerciseData.splitToSixNotes();
   await OggPlayer.initOgg();
   runApp(const MyApp());
 }

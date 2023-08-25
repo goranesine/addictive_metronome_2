@@ -53,11 +53,12 @@ class _TripletsWithAccentsPage extends State<TripletsWithAccentsPage> {
                 padding: const EdgeInsets.all(8.0),
                 child: SizedBox(
                   width: width,
-                  height: height / 100 * 60,
+                  height: height / 100 * 70,
                   child: GridView.builder(
                       shrinkWrap: true,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: am.numberOfBars),
+                      gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+                        childAspectRatio: width/height,
+                          crossAxisCount: 6),
                       itemCount: am.playingPattern.length,
                       itemBuilder: (BuildContext ctx, index) {
                         return Center(
