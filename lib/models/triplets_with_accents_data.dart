@@ -102,7 +102,6 @@ abstract class TripletsWithAccentsExerciseData{
     String stringExercise = "";
     Random r = Random();
     stringExercise = twentyFourNotesPatternList[r.nextInt(twentyFourNotesPatternList.length)];
-    print(stringExercise);
     return stringExercise;
 
   }

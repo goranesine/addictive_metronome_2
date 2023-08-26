@@ -28,7 +28,7 @@ class TripleNoteWithAccentModel{
     String temp = TripletsWithAccentsExerciseData.randomTwentyFourNotes(exerciseLevel);
     playingPattern = temp.split("");
     _timer.updateInterval(
-        Duration(milliseconds: 60000 ~/ bpm ~/ numberOfSubdivisions));
+        Duration(milliseconds: 60000 ~/ bpm ~/ 3));
     _stream = Streams.listen(on);
   }
 
@@ -95,7 +95,7 @@ class TripleNoteWithAccentModel{
   void updateBpm(int newBpm) {
     bpm = newBpm;
     _timer.updateInterval(
-        Duration(milliseconds: 60000 ~/ bpm ~/ numberOfSubdivisions));
+        Duration(milliseconds: 60000 ~/ bpm ~/ 3));
     Streams.broadcastGuiUpdateSignal();
   }
 
@@ -130,7 +130,7 @@ class TripleNoteWithAccentModel{
       if (playingPattern[beatPosition] ==
           playingPattern[beatPosition].toUpperCase()) {
         if (isClickPlaying) {
-          beatPosition % numberOfSubdivisions == 0 || beatPosition == 0
+          beatPosition % 3 == 0 || beatPosition == 0
               ? OggPlayer.play(2)
               : null;
         }
@@ -141,7 +141,7 @@ class TripleNoteWithAccentModel{
             : {beatPosition = 0, numberOfBarsPlayed++};
       } else {
         if (isClickPlaying) {
-          beatPosition % numberOfSubdivisions == 0 || beatPosition == 0
+          beatPosition % 3 == 0 || beatPosition == 0
               ? OggPlayer.play(2)
               : null;
         }
