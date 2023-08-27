@@ -1,5 +1,6 @@
 
 import 'package:addictive_metronome_2/pages/eight_note_with_accents_page.dart';
+import 'package:addictive_metronome_2/pages/pyramid_page.dart';
 import 'package:addictive_metronome_2/pages/triplets_with_accent_page.dart';
 import 'package:addictive_metronome_2/services/router.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,6 +18,8 @@ class HomePage extends StatelessWidget{
               child: Text("EIGHT NOTE WITH ACCENT")),
           ElevatedButton(onPressed:()=>SimpleRouter.forward(TripletsWithAccentsPage()),
               child: Text("TRIPLE NOTE WITH ACCENT")),
+          ElevatedButton(onPressed:()=>SimpleRouter.forward(PyramidPage()),
+              child: Text("PYRAMID EXERCISE")),
         ],
       ),
     );

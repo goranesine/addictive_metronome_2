@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 
 class Constants{
-
+static List<List<bool>> pyramidList = [
+  [true],[true,false],[true,false,false],[true,false,false,false],
+  [true,false,false,false,false],
+  [true,false,false,false,false,false],
+  [true,false,false,false,false,false,false],
+  [true,false,false,false,false,false,false,false],
+];
  static  List<Color> rainbowColors =  <Color>[
   Colors.red,
   Colors.pink,
