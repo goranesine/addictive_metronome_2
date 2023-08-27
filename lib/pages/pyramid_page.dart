@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:addictive_metronome_2/models/pyramid_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../constants.dart';
 import '../services/streams.dart';
@@ -42,9 +43,13 @@ class _PyramidPageState extends State<PyramidPage> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+
     return Scaffold(
+      backgroundColor:Colors.black,
       body: SafeArea(
         child: Row(
           children: [
@@ -204,13 +209,23 @@ class _PyramidPageState extends State<PyramidPage> {
                             child: am.isMetronomePlaying
                                 ? const Text(
                                     "STOP",
-                                    style: Constants.submitTextStyle,
+                                    style: TextStyle(
+                                      fontSize: 30,
+                                      letterSpacing: 1,
+                                      color:Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   )
                                 : const Text(
                                     "PLAY",
-                                    style: Constants.submitTextStyle,
+                                    style: TextStyle(
+                                      fontSize: 30,
+                                      letterSpacing: 1,
+                                      color:Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   )),
-                        onTap: () => am.toogleMetronome(),
+                        onTap: () {am.toogleMetronome(); blink = false;},
                       )),
                       Expanded(
                           child: InkWell(
@@ -221,8 +236,8 @@ class _PyramidPageState extends State<PyramidPage> {
                             fontSize: 30,
                             letterSpacing: 1,
                             color: am.isAutomaticIncreasmentOn
-                                ? Colors.green
-                                : Colors.black,
+                                ? Colors.greenAccent
+                                : Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         )),
@@ -236,11 +251,11 @@ class _PyramidPageState extends State<PyramidPage> {
                   child: Row(
                     children: [
                       Text(" Bpm: ${am.bpm.toString()}",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20)),
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20,color: Colors.white)),
                       Expanded(
                         child: Slider(
-                          activeColor: Colors.black,
+                          activeColor: Colors.greenAccent,
                           onChanged: (value) => am.updateBpm(value.toInt()),
                           min: am.minBpm.toDouble(),
                           max: am.maxBpm.toDouble(),

@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:addictive_metronome_2/models/triple_with_accent_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../constants.dart';
 import '../services/streams.dart';
@@ -42,9 +43,12 @@ class _TripletsWithAccentsPage extends State<TripletsWithAccentsPage> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    return Scaffold(
+    return Scaffold(      backgroundColor: Colors.white,
+
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

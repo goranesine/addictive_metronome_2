@@ -24,6 +24,12 @@ static Future<void> initOgg()async {
     rootBundle.load("assets/click.ogg").then((ogg) {
       fop.load(src: ogg, index: 2, name: 'click.ogg',forceLoad: true);
     });
+    rootBundle.load("assets/realAccent.ogg").then((ogg) {
+      fop.load(src: ogg, index: 3, name: 'realAccent.ogg',forceLoad: true);
+    });
+    rootBundle.load("assets/realTap.ogg").then((ogg) {
+      fop.load(src: ogg, index: 4, name: 'realTap.ogg',forceLoad: true);
+    });
 
   }
 
